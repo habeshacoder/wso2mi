@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/healthcareapi" name="HealthcareAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/querydoctor/{category}">
+        <inSequence>
+            <log category="INFO" logMessageID="false" logFullPayload="false"
+                description="Request Log.">
+                <message>Welcome to the HealthcareService</message>
+                <property name="Log Property message" value="Welcome to HealthcareService" />
+            </log>
+            <call>
+                <endpoint key="QueryDoctorEP" />
+
+            </call>
+            <respond />
+        </inSequence>
+        <faultSequence>
+        </faultSequence>
+    </resource>
+
+    <resource methods="GET" uri-template="/healthcare/{category}">
+        <inSequence>
+            <log category="INFO" logMessageID="false" logFullPayload="false"
+                description="log for qdoctors">
+                <message>log for qdoctors. MESSAGE</message>
+                <property name="param" expression="get-property('uri.var.category')" />
+            </log>
+
+            <http.get configKey="getdocs">
+                <relativePath>/healthcare/{uri.var.category}</relativePath>
+                <headers>[]</headers>
+                <forceScAccepted>false</forceScAccepted>
+                <disableChunking>false</disableChunking>
+                <forceHttp10>false</forceHttp10>
+                <noKeepAlive>false</noKeepAlive>
+                <responseVariable>http_get_1</responseVariable>
+                <overwriteBody>false</overwriteBody>
+            </http.get>
+
+            <log category="INFO" logMessageID="false" logFullPayload="false">
+                <message>LOG MESSAGE FOR THE HTTP REPONSE</message>
+                <property name="BODY" expression="${vars.http_get_1.payload}" />
+                <property name="sSTATUS_CODE" expression="${vars.http_get_1.attributes.statusCode}" />
+                <property name="HEADER" expression="${vars.http_get_1.headers}" />
+                <property name="uri" expression="${properties.synapse}" />
+            </log>
+            <respond />
+        </inSequence>
+        <faultSequence />
+    </resource>
+</api>

@@ -1,0 +1,15 @@
+{
+  "type": "API",
+  "/sampledoc": {
+    "requests": [
+      {
+        "name": "sampledoc",
+        "queryParams": {
+          "categpry": "surgery"
+        },
+        "pathParams": {}
+      }
+    ],
+    "defaultRequest": "sampledoc"
+  }
+}
