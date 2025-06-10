@@ -1,0 +1,10 @@
+---
+key: "HealthcareAPI2-1.0.0"
+name : "HealthcareAPI2"
+displayName : "HealthcareAPI2"
+description: "HealthcareAPI2"
+version: "1.0.0"
+serviceUrl: "https://{MI_HOST}:{MI_PORT}/healthcareapi2"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
